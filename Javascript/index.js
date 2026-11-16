@@ -58,7 +58,14 @@ function updateCity(event) {
     return;
   }
 
-  let cityName = event.target.options[event.target.selectedIndex].text;
+  let cityName = "";
+  if (cityTimeZone === "current") {
+    cityTimeZone = moment.tz.guess();
+    cityName = cityTimeZone.replace("_", " ").split("/").pop();
+  } else {
+    cityName = event.target.options[event.target.selectedIndex].text;
+  }
+
   let cityTime = moment().tz(cityTimeZone);
   let citiesElement = document.querySelector("#cities");
 
