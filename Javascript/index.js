@@ -1,46 +1,82 @@
+
+
 function updateTime() {
-  //Kyzal
-  let kyzalElement = document.querySelector("#kyzal");
-  let kyzalDateElement = kyzalElement.querySelector(".date");
-  let kyzalTimeElement = kyzalElement.querySelector(".time");
-  let kyzalTime = moment().tz("Asia/Krasnoyarsk");
+  // Kyzyl
+  let kyzylElement = document.querySelector("#kyzyl");
+  if (kyzylElement) {
+    let kyzylDateElement = kyzylElement.querySelector(".date");
+    let kyzylTimeElement = kyzylElement.querySelector(".time");
+    let kyzylTime = moment().tz("Asia/Krasnoyarsk");
 
-  kyzalDateElement.innerHTML = kyzalTime.format("MMMM Do YYYY");
-  kyzalTimeElement.innerHTML = kyzalTime.format("h:mm:ss [<small>]A[</small>]");
+    kyzylDateElement.innerHTML = kyzylTime.format("MMMM Do YYYY");
+    kyzylTimeElement.innerHTML = kyzylTime.format(
+      "h:mm:ss [<small>]A[</small>]",
+    );
+  }
 
-  //Amsterdam
+  // Amsterdam
   let amsterdamElement = document.querySelector("#amsterdam");
-  let amsterdamDateElement = amsterdamElement.querySelector(".date");
-  let amsterdamTimeElement = amsterdamElement.querySelector(".time");
-  let amsterdamTime = moment().tz("Europe/Amsterdam");
+  if (amsterdamElement) {
+    let amsterdamDateElement = amsterdamElement.querySelector(".date");
+    let amsterdamTimeElement = amsterdamElement.querySelector(".time");
+    let amsterdamTime = moment().tz("Europe/Amsterdam");
 
-  amsterdamDateElement.innerHTML = amsterdamTime.format("MMMM Do YYYY");
-  amsterdamTimeElement.innerHTML = amsterdamTime.format(
-    "h:mm:ss [<small>]A[</small>]",
-  );
+    amsterdamDateElement.innerHTML = amsterdamTime.format("MMMM Do YYYY");
+    amsterdamTimeElement.innerHTML = amsterdamTime.format(
+      "h:mm:ss [<small>]A[</small>]",
+    );
+  }
 
-  //Edinburgh
+  // Edinburgh
   let edinburghElement = document.querySelector("#edinburgh");
-  let edinburghDateElement = edinburghElement.querySelector(".date");
-  let edinburghTimeElement = edinburghElement.querySelector(".time");
-  let edinburghTime = moment().tz("Europe/London");
+  if (edinburghElement) {
+    let edinburghDateElement = edinburghElement.querySelector(".date");
+    let edinburghTimeElement = edinburghElement.querySelector(".time");
+    let edinburghTime = moment().tz("Europe/London");
 
-  edinburghDateElement.innerHTML = edinburghTime.format("MMMM Do YYYY");
-  edinburghTimeElement.innerHTML = edinburghTime.format(
-    "h:mm:ss [<small>]A[</small>]",
-  );
+    edinburghDateElement.innerHTML = edinburghTime.format("MMMM Do YYYY");
+    edinburghTimeElement.innerHTML = edinburghTime.format(
+      "h:mm:ss [<small>]A[</small>]",
+    );
+  }
 
-  //Boston
+  // Boston
   let bostonElement = document.querySelector("#boston");
-  let bostonDateElement = bostonElement.querySelector(".date");
-  let bostonTimeElement = bostonElement.querySelector(".time");
-  let bostonTime = moment().tz("America/New York");
+  if (bostonElement) {
+    let bostonDateElement = bostonElement.querySelector(".date");
+    let bostonTimeElement = bostonElement.querySelector(".time");
+    let bostonTime = moment().tz("America/New_York");
 
-  bostonDateElement.innerHTML = bostonTime.format("MMMM Do YYYY");
-  bostonTimeElement.innerHTML = bostonTime.format(
-    "h:mm:ss [<small>]A[</small>]",
-  );
+    bostonDateElement.innerHTML = bostonTime.format("MMMM Do YYYY");
+    bostonTimeElement.innerHTML = bostonTime.format(
+      "h:mm:ss [<small>]A[</small>]",
+    );
+  }
+}
+
+function updateCity(event) {
+  let cityTimeZone = event.target.value;
+  if (!cityTimeZone) {
+    return;
+  }
+
+  let cityName = event.target.options[event.target.selectedIndex].text;
+  let cityTime = moment().tz(cityTimeZone);
+  let citiesElement = document.querySelector("#cities");
+
+  citiesElement.innerHTML = `
+    <div class="city">
+      <div>
+        <h2>${cityName}</h2>
+        <div class="date">${cityTime.format("MMMM Do YYYY")}</div>
+      </div>
+      <div class="time">${cityTime.format("h:mm:ss")}<small>${cityTime.format("A")}</small></div>
+    </div>
+  `;
 }
 
 updateTime();
 setInterval(updateTime, 1000);
+
+let citiesSelectElement = document.querySelector("#city");
+citiesSelectElement.addEventListener("change", updateCity);
