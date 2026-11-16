@@ -58,7 +58,7 @@ function updateCity(event) {
     return;
   }
 
-  let cityName = cityTimeZone.replace("_", " ").split("/");
+  let cityName = event.target.options[event.target.selectedIndex].text;
   let cityTime = moment().tz(cityTimeZone);
   let citiesElement = document.querySelector("#cities");
 
