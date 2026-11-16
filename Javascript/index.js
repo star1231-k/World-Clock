@@ -1,5 +1,3 @@
-
-
 function updateTime() {
   // Kyzyl
   let kyzylElement = document.querySelector("#kyzyl");
@@ -60,7 +58,7 @@ function updateCity(event) {
     return;
   }
 
-  let cityName = event.target.options[event.target.selectedIndex].text;
+  let cityName = cityTimeZone.replace("_", " ").split("/");
   let cityTime = moment().tz(cityTimeZone);
   let citiesElement = document.querySelector("#cities");
 
